@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__) . '/../repository/article_repository.php';
 
-class article_service
+class article_usecase
 {
     private $repo;
 
@@ -13,7 +13,7 @@ class article_service
         $this->repo = new article_repository();
     }
 
-    function insert_articles($user_name, $article)
+    function insert_articles($user_name, $article): ?string
     {
         $err = $this->repo->insert($user_name, $article);
         if ($err != null) {
@@ -27,7 +27,8 @@ class article_service
         return $this->repo->index();
     }
 
-    function detail_articles($articles_id) {
+    function detail_articles($articles_id): Exception
+    {
         return $this->repo->detail($articles_id);
     }
 }

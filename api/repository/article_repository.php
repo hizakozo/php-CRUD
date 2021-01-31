@@ -40,7 +40,7 @@ class article_repository
         }
     }
 
-    function detail($articles_id)
+    function detail($articles_id): Exception
     {
         $sql = 'SELECT * FROM articles WHERE articles_id = :articles_id ';
         try {

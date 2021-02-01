@@ -1,7 +1,7 @@
 <?php
-require_once dirname(__FILE__) . '/../../usecase/article_usecase.php';
+require_once dirname(__FILE__) . '/../../usecase/articles_usecase.php';
 
-$service = new article_usecase();
-$articles = $service->index_articles();
+$au = new articles_usecase();
+$articles = $au->index_articles();
 
-print json_encode($articles);
+print $articles->get_json();

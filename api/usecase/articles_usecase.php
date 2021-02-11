@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/../repository/articles_repository.php';
-require_once dirname(__FILE__) . '/../response/base_response.php';
+require_once dirname(__FILE__) . '/../constants/error_message.php';
 
 class articles_usecase
 {
@@ -14,34 +14,32 @@ class articles_usecase
         $this->repo = new articles_repository();
     }
 
-    function insert_articles($user_name, $article): base_response
+    function insert_articles($user_name, $article): array
     {
         if (empty($user_name)) {
-            return new base_response('required user_name', null);
+            return VALIDATE_FAILED;
         }
         if (empty($article)) {
-            return new base_response('required article', null);
+            return VALIDATE_FAILED;
         }
-
         $this->repo->insert($user_name, $article);
-        return new base_response(null, null);
+        return array();
     }
 
-    function index_articles(): base_response
+    function index_articles(): array
     {
-        $articles = $this->repo->index();
-        return new base_response(null, $articles);
+        return $this->repo->index();
     }
 
-    function detail_articles($articles_id): base_response
+    function detail_articles($articles_id): array
     {
         if (empty($articles_id)) {
-            return new base_response('articles_id required', null);
+            return VALIDATE_FAILED;
         }
         $article = $this->repo->detail($articles_id);
         if (!$article) {
-            return new base_response('Not Found Data', null);
+            return NOT_FOUND_DATA;
         }
-        return new base_response(null, $article);
+        return $article;
     }
 }
